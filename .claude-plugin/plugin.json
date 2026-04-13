@@ -1,0 +1,7 @@
+{
+  "name": "muscle-memory",
+  "version": "0.1.0",
+  "description": "Muscle memory for Claude Code — patterns that sharpen through repetition. Observes your workflow and progressively promotes repeated patterns from passive knowledge to automatic reflexes.",
+  "author": "tellertech",
+  "license": "MIT"
+}

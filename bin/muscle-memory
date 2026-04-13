@@ -1,0 +1,3 @@
+#!/bin/sh
+# Thin wrapper — routes to the compiled Node CLI
+exec node "$(dirname "$0")/../server/dist/cli.js" "$@"

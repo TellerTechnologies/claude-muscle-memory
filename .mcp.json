@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "muscle-memory": {
+      "command": "node",
+      "args": ["server/dist/mcp-server.js"]
+    }
+  }
+}
