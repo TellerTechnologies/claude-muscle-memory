@@ -1,22 +1,25 @@
 import Database from 'better-sqlite3';
-import { join } from 'node:path';
+import { join, dirname } from 'node:path';
 import { mkdirSync } from 'node:fs';
 import { homedir } from 'node:os';
 import type { Observation, Pattern, Reflex, EventType, PatternType, ReflexType } from './types.js';
 
-const DB_DIR = join(homedir(), '.claude-muscle-memory');
-const DB_PATH = join(DB_DIR, 'patterns.db');
+function getDbPath(): string {
+  if (process.env.MUSCLE_MEMORY_DB) return process.env.MUSCLE_MEMORY_DB;
+  return join(homedir(), '.claude-muscle-memory', 'patterns.db');
+}
 
-function ensureDir(): void {
-  mkdirSync(DB_DIR, { recursive: true });
+function ensureDir(dbPath: string): void {
+  mkdirSync(dirname(dbPath), { recursive: true });
 }
 
 let _db: Database.Database | null = null;
 
 export function getDb(): Database.Database {
   if (_db) return _db;
-  ensureDir();
-  _db = new Database(DB_PATH);
+  const dbPath = getDbPath();
+  ensureDir(dbPath);
+  _db = new Database(dbPath);
   _db.pragma('journal_mode = WAL');
   _db.pragma('foreign_keys = ON');
   initSchema(_db);
